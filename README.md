@@ -34,7 +34,7 @@ Dòng đối chiếu do chính agent tự rà, nên không phải bằng chứng
 macOS hoặc Linux:
 
 ```bash
-git clone https://github.com/vuongtr-kajo/ste-skill.git ~/Code/ste-skill
+git clone https://github.com/clirous/ste-skill.git ~/Code/ste-skill
 ~/Code/ste-skill/install.sh
 ```
 
