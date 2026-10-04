@@ -1,72 +1,72 @@
-# Khoảng cách giữa đầu ra kỹ thuật và người đọc không chuyên
+# Gaps between technical output and a non-technical reader
 
-Các nhóm dưới đây rút ra từ dữ liệu thật: khoảng 1.740 tin nhắn của một chủ dự án không chuyên làm việc với Claude Code và Codex trong hai tháng. Trong đó có khoảng 50 lần họ phải hỏi lại "chưa hiểu", "là sao". Các ví dụ đã được viết lại thành tình huống chung, không chứa dữ liệu gốc.
+These groups come from real data: about 1,740 messages from a non-technical project owner who worked with Claude Code and Codex for two months, in Vietnamese. About 50 times they had to ask again ("I don't get it", "what does that mean?"). The examples below are rewritten as generic situations and contain none of the original data.
 
-| Nhóm | Số lần trong 50 lần hỏi lại | Dấu hiệu |
+| Group | Times in the 50 follow-ups | Signs |
 |---|---|---|
-| Mã, nhãn nội bộ, viết tắt | 17 | "U01–U14 là gì?", "phase 4/5 là cái gì?" |
-| Câu hỏi cần chốt thiếu bối cảnh | 14 | "chưa hiểu câu hỏi", "khuyến nghị của bạn là gì?" |
-| Cơ chế, đánh đổi chưa tới nơi, hoặc tự mâu thuẫn | 8 | "tức là sao?", "vẫn làm được mà sao bảo hỏng?" |
-| Từ thường hoặc từ dịch mang nghĩa riêng | 6 | "phát hành là phát hành cái gì, hóa đơn à?" |
-| Báo cáo quá kỹ thuật, không nói người đọc cần làm gì | 5 | "đọc không hiểu gì cả", "giờ tôi cần làm gì?" |
+| Codes, internal labels, abbreviations | 17 | "What is U01–U14?", "what is phase 4/5?" |
+| Decision questions without context | 14 | "I don't understand the question", "what do you recommend?" |
+| Mechanism or trade-off not fully explained, or self-contradictory | 8 | "meaning what?", "it still works, so why do you say it's broken?" |
+| Everyday or translated words with a special meaning | 6 | "release what, the invoices?" |
+| Report too technical, does not say what the reader must do | 5 | "I can't understand any of this", "so what do I need to do?" |
 
-Một quy tắc văn phong luôn bật ("viết dễ hiểu") làm phàn nàn "quá kỹ thuật" giảm từ 4 lần xuống 1 lần, nhưng không làm giảm hai nhóm đầu: sau khi có quy tắc, nhóm câu hỏi cần chốt còn tăng từ 3 lên 11 lần. Vì vậy hai nhóm này được viết thành quy tắc cụ thể trong skill.
+An always-on style rule ("write simply") cut the "too technical" complaints from 4 to 1, but it did not reduce the first two groups: after the rule was added, confusion about decision questions rose from 3 to 11. That is why the skill turns those two groups into specific rules.
 
-## 1. Câu hỏi cần chốt
+## 1. Decision questions
 
-Bản gốc:
+Source:
 
-> Cần anh quyết:
-> 1. Chạy migration 0075–0078 trong release Lần B tối nay?
-> 2. Bật `NOTIFY_ENABLED`?
+> Need you to decide:
+> 1. Run migrations 0075–0078 in the Release B rollout tonight?
+> 2. Enable `NOTIFY_ENABLED`?
 
-Viết lại:
+Rewrite:
 
-> 1. **Có cho cập nhật cấu trúc dữ liệu (migration 0075–0078) khi đưa bản mới lên server tối nay (release Lần B) không?**
->    - Lựa chọn: làm tối nay, hoặc dời sang đợt sau.
->    - Vì sao cần chốt và khuyến nghị: bản gốc chưa nêu. Cần agent bổ sung trước khi bạn trả lời.
-> 2. **Có bật tính năng gửi thông báo tự động (`NOTIFY_ENABLED`) không?**
->    - Bật thì hệ thống tự gửi thông báo; tắt thì không gửi gì. Bản gốc không nói gửi cho ai, nên cần hỏi lại agent.
+> 1. **Do you approve the database structure update (migrations 0075–0078) when the new version goes onto the server tonight (Release B)?**
+>    - Options: do it tonight, or move it to a later rollout.
+>    - Why it must be decided, and a recommendation: not given in the source. Ask the agent to add them before you answer.
+> 2. **Do you want to turn on automatic notifications (`NOTIFY_ENABLED`)?**
+>    - On: the system sends notifications automatically. Off: it sends nothing. The source does not say who receives them, so ask the agent.
 
-Giữ đủ 2 câu, giữ số migration, tên cờ và chữ "tối nay". Phần bản gốc không có thì nói là không có, không tự bịa lý do.
+Both questions are kept, together with the migration numbers, the flag name and "tonight". Where the source has nothing, the rewrite says so and does not invent a reason.
 
-## 2. Mã và nhãn nội bộ
+## 2. Codes and internal labels
 
-- Sai: "Anh chạy UAT U01–U14."
-- Đúng, khi nguồn có giải thích: "Anh tự bấm thử 14 bước kiểm tra trên app (U01–U14, danh sách trong `owner-uat.md`)."
-- Đúng, khi nguồn không có giải thích: "Anh chạy U01–U14. Bản gốc chưa giải thích U01–U14 là gì."
+- Wrong: "Please run UAT U01–U14."
+- Right, when the source explains it: "Please try the 14 test steps in the app yourself (U01–U14, listed in `owner-uat.md`)."
+- Right, when the source does not explain it: "Please run U01–U14. The source does not explain what U01–U14 are."
 
-## 3. Từ mang nghĩa riêng
+## 3. Words with a special meaning
 
-Trong một cửa hàng có xuất hóa đơn điện tử, câu "Phát hành Lần B tối nay" dễ bị hiểu là phát hành hóa đơn. Nên viết: "Đưa bản mới của app lên server tối nay (release Lần B; việc này không liên quan đến hóa đơn)."
+In the Vietnamese data, the word for "release" (*phát hành*) is also the usual word for issuing an invoice. For a shop that issues e-invoices, "Release B tonight" read as "issue invoices tonight". Better: "Put the new version of the app on the server tonight (Release B; this has nothing to do with invoices)."
 
-Những từ khác cũng hay gây nhầm: "xuất" (xuất file hay xuất kho), "nháp" (bản nháp trong app hay tab Nháp trong sheet), "đồng bộ" (chạy một lần hay chạy liên tục), "gửi lỗi" (gửi đi bị lỗi hay gửi báo cáo lỗi).
+English has the same trap. For a clothing brand with its own workshop, "deploy to production" can sound like the production line. Other words that often mislead: "issue" (a ticket or a problem), "export" (a file export or exporting goods), "draft" (a draft in the app or a Draft tab in a spreadsheet), "sync" (once, or continuously).
 
-## 4. Kết quả và việc cần làm lên đầu
+## 4. Result and next action first
 
-- Bản gốc: "Vitest 183/183, Playwright 7/7, typecheck sạch, còn 4 warning cũ. Commit `a1b2c3d`."
-- Viết lại: "Bản sửa qua hết các bài kiểm tra tự động (183/183 và 7/7). Bạn chưa cần làm gì; bước tiếp theo đang chờ bạn quyết ở mục 2. Còn 4 cảnh báo cũ, có từ trước lần sửa này. Mã commit: `a1b2c3d`."
+- Source: "Vitest 183/183, Playwright 7/7, typecheck clean, 4 old warnings remain. Commit `a1b2c3d`."
+- Rewrite: "The fix passed all automated tests (183/183 and 7/7). You do not need to do anything yet; the next step waits for your decision in item 2. There are 4 old warnings that existed before this fix. Commit: `a1b2c3d`."
 
-## 5. Cơ chế và đánh đổi
+## 5. Mechanisms and trade-offs
 
-- Bản gốc: "Audit feed là trang 1, limit 200 events toàn bộ hoạt động admin."
-- Viết lại: "Hệ thống chỉ đọc 200 sự kiện gần nhất của trang quản trị, gồm cả những sự kiện không phải đơn. Vào ngày đông đơn, nếu hệ thống tạm dừng lâu thì có thể sót một số đơn. Dữ liệu không mất, chỉ là chưa được đọc tới (audit feed, limit 200)."
+- Source: "Audit feed is page 1, limit 200 events across all admin activity."
+- Rewrite: "The system only reads the 200 most recent events from the admin area, including events that are not orders. On a busy day, if the system pauses for a long time, some orders can be missed. The data is not lost; it is just not read yet (audit feed, limit 200)."
 
-Khi bản gốc có hai ý trông ngược nhau, ví dụ "deploy được ngay" và "tự deploy sẽ ra trang hỏng", hãy chỉ ra và giải thích theo nguồn. Ở ví dụ này: tự deploy chỉ cập nhật code, còn release này cần thêm ba thao tác cấu hình làm bằng tay. Nếu nguồn không giải thích được thì ghi là bản gốc mâu thuẫn.
+When the source has two statements that look opposite, for example "can deploy right away" and "auto-deploy will produce a broken page", point it out and explain it from the source. In this example, auto-deploy only updates the code, while this release also needs three manual configuration steps. If the source cannot explain it, say that the source contradicts itself.
 
-## 6. Lượng mơ hồ
+## 6. Vague amounts
 
-- Sai: "Đề xuất cắt bớt nhịp cron."
-- Đúng: "Đề xuất giảm số lần chạy tự động từ 12 xuống 6 lần mỗi giờ (cron gửi thông báo)."
+- Wrong: "Proposal: cut back the cron frequency."
+- Right: "Proposal: reduce the automatic runs from 12 to 6 times per hour (notification cron)."
 
-## Lỗi giữ nghĩa đã gặp khi viết lại
+## Meaning failures seen in rewrites
 
-- Soạn lại danh sách theo trí nhớ: 6 việc chờ quyết thành 10 mục, kèm thêm một danh sách đánh số thứ hai, khiến người đọc bỏ sót mục 9 và 10.
-- Làm rơi một câu hỏi còn mở và một chi tiết số liệu (số migration).
-- Chuyển một việc sang nhóm "quyết sau" trong khi bản gốc xếp nó vào đợt hiện tại.
-- Hỏi lại một việc người đọc đã chốt vì không ghi rõ phần đã chốt và phần còn thiếu.
-- Đổi "đề xuất" thành "sẽ", hoặc "có thể chậm" thành "sẽ chậm".
+- A list rewritten from memory: 6 pending decisions became 10 items plus a second numbered list, and the reader missed items 9 and 10.
+- One open question and one number (the migration number) were dropped.
+- An item was moved to "decide later" when the source put it in the current round.
+- The reader was asked again about something they had already decided, because the rewrite did not separate what was decided from what was missing.
+- "Proposed" became "will", or "may be slow" became "will be slow".
 
-Dòng đối chiếu ở cuối bài giúp phát hiện các lỗi này:
+The source check line at the end helps catch these failures:
 
-> Đối chiếu bản gốc: giữ 6/6 mục và 2/2 câu hỏi mở; bổ sung: lý do của mục 1 (từ `plan.md` phase 7); bản gốc chưa rõ: U01–U14 là gì.
+> Source check: kept 6/6 items and 2/2 open questions; added: reason for item 1 (from `plan.md` phase 7); unclear in source: what U01–U14 are.

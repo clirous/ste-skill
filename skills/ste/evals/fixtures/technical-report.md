@@ -1,17 +1,17 @@
-Đã xong Phase 7–9 trên branch `feat/order-db`, test 412/412 xanh, chưa deploy.
+Done with Phase 7–9 on branch `feat/order-db`, tests 412/412 green, not deployed.
 
-Trạng thái:
-- Migration 0031–0034 đã viết, chưa chạy trên production.
-- `SYNC_ENABLED` mặc định false.
-- UAT U01–U05 chưa chạy.
-- Đã chốt từ trước: sao lưu database trước mỗi lần chạy migration.
+Status:
+- Migrations 0031–0034 written, not yet run on production.
+- `SYNC_ENABLED` defaults to false.
+- UAT U01–U05 not run yet.
+- Decided earlier: back up the database before every migration run.
 
-Cần anh quyết:
-1. Phát hành Lần B (gồm migration 0031–0034) tối thứ Sáu hay Chủ nhật?
-2. Bật `SYNC_ENABLED` cho một nhân viên thử ở chế độ preview?
-3. Cron đối soát: cắt bớt nhịp hay giữ?
-4. Giữ bản backup `orders.db.pre-0031` bao lâu?
+Need you to decide:
+1. Ship Release B (includes migrations 0031–0034) to production Friday night or Sunday?
+2. Turn on `SYNC_ENABLED` for one staff member in preview mode?
+3. Reconciliation cron: cut back the frequency or keep it?
+4. How long do we keep the backup `orders.db.pre-0031`?
 
-Lưu ý: deploy được ngay qua API, nhưng nếu để auto-deploy chạy thì trang /orders sẽ lỗi vì thiếu biến `ORDER_API_URL`.
+Note: can deploy right away via the API, but if auto-deploy runs, the /orders page will break because `ORDER_API_URL` is missing.
 
-Câu hỏi còn mở: script import cũ trên Drive có cần chuyển vào repo không?
+Open question: does the old import script on Drive need to move into the repo?

@@ -1,35 +1,35 @@
-# Minh họa khi nó giúp hiểu
+# Visuals only when they help understanding
 
-Chọn theo câu hỏi người đọc cần giải quyết, không theo mong muốn trang trí hoặc làm đầu ra có vẻ đầy đủ. Hướng của Karpathy là mở thêm cách giải thích; không phải lúc nào video cũng tốt hơn chữ.
+Choose by the question the reader needs answered, not by a wish to decorate or to make the output look complete. Karpathy's idea is to open more ways to explain; video is not always better than text.
 
-## Quyết định trong chế độ auto
+## Deciding in auto mode
 
-Trước khi tạo visual, xác định: người đọc sẽ hiểu điều gì nhanh hoặc chính xác hơn nhờ hình này? Nếu không trả lời cụ thể được, dùng chữ. Không cần công bố lý do bỏ visual cho mỗi câu trả lời đơn giản.
+Before you create a visual, decide what the reader will understand faster or more exactly because of it. If you cannot answer specifically, use text. You do not need to explain why you skipped a visual for every simple answer.
 
-| Nhu cầu | Hình thức phù hợp | Khi không nên thêm |
+| Need | Suitable form | When not to add it |
 |---|---|---|
-| Một kết luận, một thao tác, vài ý rõ | Đoạn văn hoặc danh sách ngắn | Không thêm sơ đồ chỉ vì có tên kỹ thuật |
-| So sánh phương án/quyền/trạng thái theo cùng tiêu chí | Bảng gọn | Ít thông tin, đọc một câu đã đủ |
-| Quan hệ, thứ tự, nhánh quyết định, trách nhiệm hoặc luồng dữ liệu khó hình dung | Mermaid nhỏ, bảng chuyển trạng thái hoặc sơ đồ tĩnh | Chỉ có chuỗi đơn giản đã rõ trong chữ; không vẽ mọi component |
-| Số liệu hoặc biến thiên cần so sánh | Biểu đồ dùng dữ liệu nguồn | Không tự tạo dữ liệu, tỷ lệ, chiều hướng hoặc độ chính xác |
-| Người đọc cần lọc, thử kịch bản, đổi tham số hoặc khám phá nhiều lớp | HTML tương tác gọn, nếu được phép tạo artifact | Không xuất HTML chỉ để trình bày vài đoạn chữ |
-| Thay đổi theo thời gian/chuyển động cần xem | Chỉ đề xuất video khi hữu ích | Không tự dựng video trong auto |
+| One conclusion, one action, a few clear points | A paragraph or a short list | Do not add a diagram just because there are technical names |
+| Compare options, permissions or states on the same criteria | A compact table | Little information; one sentence is enough |
+| Relationships, order, decision branches, responsibilities or data flows that are hard to picture | A small Mermaid diagram, a state table or a static diagram | A simple chain that is already clear in text; do not draw every component |
+| Numbers or changes to compare | A chart from source data | Do not invent data, ratios, trends or precision |
+| The reader needs to filter, try scenarios, change parameters or explore several layers | A compact interactive HTML page, if creating artifacts is allowed | Do not produce HTML just to show a few paragraphs |
+| Change over time or motion that must be seen | Only suggest a video when it helps | Do not make a video on your own in auto mode |
 
-Trong `--visual off`, không tạo visual tùy chọn. Nội dung bắt buộc đã chốt của workflow đang dùng vẫn giữ; nếu toàn bộ yêu cầu không thể đáp ứng đồng thời, nêu xung đột trước khi thay đổi yêu cầu. Không xóa visual cũ khi chỉ rà văn phong.
+With `--visual off`, do not create optional visuals. Required content of the active workflow stays. If all requirements cannot be met at once, state the conflict before changing a requirement. Do not delete existing visuals when you only review the wording.
 
-## Khi người dùng chọn hình thức
+## When the user chooses the form
 
-- `diagram`: tạo sơ đồ phù hợp dù auto sẽ chọn chữ; giữ phạm vi nhỏ. Dùng skill Mermaid/diagram đang có nếu nó phù hợp và có thể gọi; không yêu cầu cài công cụ mới chỉ để vẽ.
-- `html`: tạo HTML theo khả năng hiện có. Khi một workflow khác đã tạo artifact HTML (ví dụ plan hoặc brainstorm có `--html`), để workflow đó sở hữu artifact và áp dụng `ste` vào nội dung/visual của artifact đó; không tạo HTML thứ hai.
-- `video`: kiểm tra công cụ, nguồn hình và âm thanh, quyền sử dụng, chi phí và phạm vi đã cho phép. Không tự lấy secret, bật dịch vụ trả phí hoặc hứa đã render nếu chưa có công cụ. Nếu chưa thể dựng, báo giới hạn và chỉ tạo kịch bản/storyboard khi đó là phần được yêu cầu/cho phép.
-- `--check`: chỉ nhận xét và đề xuất visual trong chat; không tạo file ở bất kỳ chế độ nào.
+- `diagram`: create a fitting diagram even if auto would choose text; keep it small. Use an installed Mermaid or diagram skill if it fits and can be called; do not ask to install a new tool just to draw.
+- `html`: create HTML with the tools available. When another workflow already creates an HTML artifact (for example a plan or brainstorm with `--html`), let that workflow own the artifact and apply `ste` to its content and visuals; do not create a second HTML file.
+- `video`: check the tools, image and audio sources, usage rights, cost and the approved scope. Do not fetch secrets, turn on paid services, or promise a render when no tool is available. If you cannot build it, state the limit and only write a script or storyboard when that is requested or allowed.
+- `--check`: only comment and suggest visuals in chat; do not create files in any mode.
 
-## Chất lượng và nguồn sự thật
+## Quality and source of truth
 
-1. Mỗi visual giải quyết một câu hỏi; dùng nhãn dễ hiểu và giữ nguyên định danh khi cần đối chiếu code.
-2. Giữ đủ nhánh lỗi/ngoại lệ ảnh hưởng kết luận. Đánh dấu “đề xuất” hoặc “chưa chốt” trên phần chưa được xác nhận; hình không được làm giả định có vẻ như kiến trúc đang chạy.
-3. Với visual giải thích, văn bản nguồn giữ quy tắc chính thức. Nếu workflow có hợp đồng Markdown/HTML riêng, giữ hợp đồng đó. Các con số và trạng thái trong hình phải khớp nguồn.
-4. Không chép lại toàn bộ tài liệu thành một artifact phụ. Nhúng sơ đồ vào tài liệu gốc nếu thích hợp; file riêng dẫn về nguồn gốc và chỉ phục vụ câu hỏi cần minh họa.
-5. HTML dùng được ở kích thước màn hình nhỏ, có nhãn/đọc bằng bàn phím cho tương tác, không lệ thuộc CDN hoặc mạng nếu có thể làm tự chứa. Nội dung dạng chữ phải vẫn đọc được nếu JavaScript không chạy.
-6. Kiểm tra cú pháp và mở/render artifact khi có công cụ. Nếu không render được, ghi rõ mới kiểm tra nguồn hoặc cú pháp; không tuyên bố đã xem hình.
-7. Nếu runtime không hiển thị Mermaid, dùng ASCII hoặc bảng tương đương khi phù hợp; báo hạn chế mà không biến một yêu cầu đơn giản thành tác vụ cài môi trường.
+1. Each visual answers one question. Use plain labels and keep identifiers when they are needed to match the code.
+2. Keep every error or exception branch that affects the conclusion. Mark unconfirmed parts as "proposed" or "not decided"; a diagram must not make an assumption look like the running architecture.
+3. For an explanatory visual, the source text keeps the official rules. If the workflow has its own Markdown or HTML contract, keep that contract. Numbers and states in the visual must match the source.
+4. Do not copy the whole document into an extra artifact. Embed the diagram in the original document when that fits; a separate file links back to the source and only serves the question it illustrates.
+5. HTML works on small screens, has labels and keyboard access for interactions, and does not depend on a CDN or the network when it can be self-contained. Text content must stay readable if JavaScript does not run.
+6. Check the syntax and open or render the artifact when a tool is available. If you cannot render it, say that you only checked the source or the syntax; do not claim that you looked at the image.
+7. If the runtime does not display Mermaid, use ASCII or an equivalent table when that fits. State the limit without turning a simple request into an environment setup task.

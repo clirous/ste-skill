@@ -1,22 +1,22 @@
-# Tiếng Anh theo STE nghiêm hơn
+# Stricter English (STE)
 
-`--strict` tăng mức kỷ luật cho văn bản kỹ thuật tiếng Anh, dựa trên ASD-STE100 được repo 0xpili mô tả. Đây không phải chứng nhận tuân thủ toàn bộ chuẩn. Bộ này không đóng gói từ điển ASD hoặc công cụ kiểm tra chính thức.
+`--strict` raises the discipline for English technical text, based on ASD-STE100 as described in the 0xpili repo. It is not a certification of full compliance with the standard. This skill does not include the ASD dictionary or an official checker.
 
-## Khi dùng
+## When to use
 
-Chỉ áp dụng cho phần văn bản tiếng Anh. Nếu đầu vào là tiếng Việt và người dùng chưa yêu cầu dịch, giải thích giới hạn và tiếp tục chế độ viết rõ nghĩa thông thường. Giữ nguyên code, định danh, tên chính thức, trích dẫn và thông báo lỗi nguồn.
+Apply it only to English text. If the input is in another language and the user has not asked for a translation, explain the limit and continue in the normal plain-language mode. Keep code, identifiers, official names, quotations and original error messages as they are.
 
-## Quy tắc viết
+## Writing rules
 
-- Phân biệt hướng dẫn thao tác với mô tả. Viết câu thao tác tối đa 20 từ và câu mô tả tối đa 25 từ theo cách đếm STE khi áp dụng được; đoạn tối đa sáu câu, một chủ đề. Không dùng giới hạn này cho tiếng Việt.
-- Dùng chủ động nếu nguồn cho biết chủ thể. Dùng mệnh lệnh cho thao tác thực sự bắt buộc; không chuyển một khuyến nghị thành lệnh bắt buộc.
-- Dùng cấu trúc động từ đơn giản, thuật ngữ nhất quán, đủ chủ ngữ/động từ và các từ nối cần thiết. Tránh contractions, semicolons, thành ngữ và phrasal verbs khi cách thay thế giữ được nghĩa.
-- Viết một thao tác chính trong mỗi câu. Giữ hai hành động cùng câu khi chúng cần diễn ra đồng thời; không tách làm mất điều kiện đồng thời.
-- Đặt điều kiện cạnh hành động; giữ phủ định, thứ tự, ngoại lệ, lượng và đơn vị. Viết rõ đối tượng thay cho đại từ có nhiều cách hiểu.
-- Chỉ dùng từ theo nghĩa phù hợp. Nếu có từ điển/chuẩn chính thức được phép đọc, đối chiếu trước khi tuyên bố đã kiểm tra từ vựng. Không tự suy đoán từ nằm trong danh sách được phê duyệt.
+- Separate procedures from descriptions. Procedural sentences have a limit of 20 words and descriptive sentences a limit of 25 words, counted the STE way where it applies. A paragraph has a limit of six sentences and covers one topic. Do not apply these limits to other languages.
+- Use the active voice when the source names the actor. Use the imperative for steps that are truly required; do not turn a recommendation into a required step.
+- Use simple verb forms, consistent terms, a full subject and verb, and the linking words you need. Avoid contractions, semicolons, idioms and phrasal verbs when an alternative keeps the meaning.
+- Write one main action per sentence. Keep two actions in one sentence when they must happen at the same time; do not split them and lose that condition.
+- Put the condition next to the action. Keep negations, order, exceptions, quantities and units. Name the object instead of using a pronoun that can be read two ways.
+- Use each word only in a fitting meaning. If an official dictionary or standard is available and allowed, check against it before you claim the vocabulary was checked. Do not guess that a word is on the approved list.
 
-## Giữ nghĩa khi có xung đột
+## Keeping meaning when the rules conflict
 
-Repo nguồn hạn chế nhiều modal như “may”, “might”, “should”. Không thay chúng bằng “must” hoặc “will” nếu làm thay đổi yêu cầu/độ chắc chắn. Tìm cách diễn đạt tương đương; nếu không thể đồng thời giữ nghĩa và đạt quy tắc, giữ nghĩa và báo giới hạn cụ thể. Không xóa cảnh báo hoặc sự chưa chắc chắn để vượt kiểm tra văn phong.
+The source repo limits many modals such as "may", "might" and "should". Do not replace them with "must" or "will" if that changes the requirement or the certainty. Find an equivalent wording. If you cannot keep the meaning and follow the rule at the same time, keep the meaning and report the specific limit. Do not delete a warning or an uncertainty to pass a style check.
 
-Nếu dự án yêu cầu tuân thủ ASD-STE100 chính thức, cần chuẩn đầy đủ đúng phiên bản và quy trình kiểm tra phù hợp. Không mô tả một bản rewrite theo hướng dẫn này là đã đạt chuẩn chính thức.
+If a project requires official ASD-STE100 compliance, it needs the full standard in the right version and a suitable checking process. Do not describe a rewrite made with this guide as officially compliant.

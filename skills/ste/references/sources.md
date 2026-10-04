@@ -1,25 +1,25 @@
-# Nguồn và ghi nhận
+# Sources and credits
 
-Skill này được viết lại cho người đọc không chuyên và cho các workflow agent viết code. Không sao chép bộ từ điển hoặc script từ repo nguồn.
+This skill was written for non-technical readers and for coding-agent workflows. It does not copy the dictionary or scripts from the source repo.
 
-## Repo nguồn
+## Source repo
 
 [0xpili/simplified-technical-english](https://github.com/0xpili/simplified-technical-english/tree/1e148d670cba46685ad2b4c3f2354a637a7fdbbe), commit `1e148d670cba46685ad2b4c3f2354a637a7fdbbe`.
 
-Repo này dựa trên ASD-STE100 Issue 7 (2017). Phần học từ repo: câu rõ, câu chủ động, mỗi câu một ý chính, thuật ngữ nhất quán, giữ các từ cần thiết và rà lại sau khi viết. Chế độ tiếng Anh `--strict` tham khảo giới hạn 20/25 từ một câu và sáu câu một đoạn.
+That repo is based on ASD-STE100 Issue 7 (2017). What this skill takes from it: clear sentences, active voice, one main idea per sentence, consistent terms, keeping the words that matter, and reviewing after writing. The English `--strict` mode follows its limits of 20/25 words per sentence and six sentences per paragraph.
 
-Repo có MIT license cho phần skill và script; từ điển ASD có quyền riêng, và bộ này không phân phối từ điển đó. Xem [license upstream](https://github.com/0xpili/simplified-technical-english/blob/1e148d670cba46685ad2b4c3f2354a637a7fdbbe/LICENSE) và [NOTICE](https://github.com/0xpili/simplified-technical-english/blob/1e148d670cba46685ad2b4c3f2354a637a7fdbbe/NOTICE.md). Bản license upstream được giữ trong `UPSTREAM-LICENSE` để ghi nhận phần tham khảo; file đó giữ nguyên tiếng Anh vì là văn bản pháp lý gốc.
+The repo has an MIT license for its skill and scripts. The ASD dictionary has its own rights, and this skill does not distribute it. See the [upstream license](https://github.com/0xpili/simplified-technical-english/blob/1e148d670cba46685ad2b4c3f2354a637a7fdbbe/LICENSE) and [NOTICE](https://github.com/0xpili/simplified-technical-english/blob/1e148d670cba46685ad2b4c3f2354a637a7fdbbe/NOTICE.md). A copy of the upstream license is kept in `UPSTREAM-LICENSE` as credit for the parts used.
 
-## Bài của Karpathy
+## Karpathy's post
 
-[Bài gốc](https://x.com/karpathy/status/2105819303471976479) nhắc tới ASD-STE100, khả năng nới mức áp dụng, rồi mở rộng sang sơ đồ, HTML tương tác và video giải thích. Bộ này lấy ý tưởng chọn hình thức nào giúp người đọc hiểu nhất; không coi danh sách đó là thứ tự bắt buộc. Repo không lưu toàn văn bài.
+[The original post](https://x.com/karpathy/status/2105819303471976479) mentions ASD-STE100 and the option to relax how strictly it is applied, then extends the idea to diagrams, interactive HTML and explainer videos. This skill takes the idea of choosing the form that helps the reader most; it does not treat that list as a required order. The repo does not store the full text of the post.
 
-## Dữ liệu thực tế
+## Real-world data
 
-Hợp đồng giữ nghĩa và [các khoảng cách hay gặp](reader-gaps.md) rút ra từ việc rà khoảng 1.740 tin nhắn của một chủ dự án không chuyên với Claude Code và Codex (08–10/2026). Trong đó có khoảng 50 lần họ phải hỏi lại. Lần thử đầu tiên của skill cũng cho thấy các lỗi giữ nghĩa khi viết lại một danh sách theo trí nhớ. Dữ liệu gốc không được công bố; các ví dụ trong repo đã được viết lại thành tình huống chung.
+The meaning-preservation contract and the [common gaps](reader-gaps.md) come from reviewing about 1,740 messages between one non-technical project owner and Claude Code and Codex (August to October 2026, in Vietnamese). About 50 times the owner had to ask again. The first trial of the skill also showed meaning failures when a list was rewritten from memory. The raw data is not published; the examples in this repo are rewritten as generic situations.
 
-## Phần bổ sung của bộ này
+## What this skill adds
 
-Hợp đồng giữ nghĩa, dòng đối chiếu, rà chỗ mơ hồ theo hành vi triển khai, ghép với workflow, chế độ chỉ đọc và quy tắc chọn minh họa đều là thiết kế bổ sung. Chúng không phải quy tắc nguyên văn từ bài Karpathy, cũng không phải chứng nhận của ASD.
+The meaning-preservation contract, the source check line, the ambiguity review based on implementation behavior, workflow composition, the read-only mode and the visual routing rules are additions of this skill. They are not rules quoted from Karpathy's post, and they are not an ASD certification.
 
-ASD-STE100 thuộc ASD. Bộ này không liên kết chính thức với ASD, không được ASD phê duyệt và không chứng nhận tuân thủ. Chuẩn chính thức có tại [ASD-STE100](https://www.asd-ste100.org/).
+ASD-STE100 belongs to ASD. This skill is not officially linked to ASD, is not approved by ASD and does not certify compliance. The official standard is at [ASD-STE100](https://www.asd-ste100.org/).

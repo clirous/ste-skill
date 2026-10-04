@@ -1,11 +1,17 @@
-# Chạy lại bộ ca
+# Running the eval cases
 
-`evals.json` chứa chín input train và tiêu chí chấm. Ca `rewrite-previous` kiểm tra cách dùng chính: đưa `fixtures/technical-report.md` vào làm câu trả lời trước của agent, rồi gọi `/ste` không kèm gì. Khi chạy consumer, chỉ đưa prompt và fixture; giữ expected_output/assertions ở bên người chấm.
+`evals.json` holds nine training inputs and their grading criteria. The `rewrite-previous` case tests the main use: give `fixtures/technical-report.md` as the agent's previous answer, then call `/ste` with nothing else. When you run the agent under test, give it only the prompt and the fixture; keep `expected_output` and the assertions with the grader.
 
-Với ca readonly, sao chép `fixtures/input-plan.md` thành `input-plan.md` trong workspace tạm riêng trước khi chạy, ghi SHA256 trước/sau và kiểm tra không tạo artifact. Không cho consumer đọc cây nguồn/bộ expected của variant khác.
+For the read-only case, copy `fixtures/input-plan.md` to `input-plan.md` in a separate temporary workspace before the run, record the SHA256 before and after, and check that no artifact was created. Do not let the agent under test read the source tree or the expected results of another variant.
 
-So sánh baseline không đọc STE với candidate đọc SKILL và tham chiếu phù hợp, giữ cùng input/công cụ/cấu hình. Ghi rõ nếu chạy batch trong một phiên hoặc từng ca ở phiên mới; hai kiểu không có cùng mức độc lập.
+Compare a baseline that does not read STE with a candidate that reads `SKILL.md` and the relevant references, using the same input, tools and settings. State whether the cases ran as a batch in one session or one per fresh session; the two are not equally independent.
 
-Nếu muốn một bộ holdout cho lần cải tiến sau, hãy tạo ca mới mà agent chưa từng đọc.
+## Quick live check with Claude Code
 
-Các tool kiểm tra schema (ví dụ `eval_skill.py` của skill-creator) chỉ kiểm tra cấu trúc hoặc chấm artifact, không tự chạy model. Không coi schema hợp lệ là toàn bộ test đã qua.
+1. Make the source the agent's previous answer: `claude -p "Reply with exactly the text below, adding nothing: <source>" --output-format json`, and note the `session_id`.
+2. Check that the reply matches the source exactly.
+3. Run `claude -p --resume <session_id> "/ste"` and compare the rewrite with the source: number of items and questions, every identifier and number, certainty words, and the source check line.
+
+If you want a holdout set for the next improvement, write new cases that the agent has never read.
+
+Schema tools (for example `eval_skill.py` from skill-creator) only check the structure or grade artifacts; they do not run a model. A valid schema does not mean all tests passed.

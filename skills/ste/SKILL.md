@@ -1,84 +1,84 @@
 ---
 name: ste
-description: "Viết lại câu trả lời hoặc tài liệu kỹ thuật của AI để người không chuyên hiểu và quyết định được, mà không đổi nghĩa: giữ đủ từng mục, số liệu, định danh và độ chắc chắn; giải thích mã nội bộ, thuật ngữ và các câu hỏi cần chốt. Dùng khi gọi /ste hoặc $ste, khi người đọc nói chưa hiểu, hoặc khi cần rà chỗ mơ hồ trong plan/yêu cầu. Không áp lên nội dung thương hiệu; không chứng nhận ASD-STE100."
+description: "Rewrite an AI agent's technical answer or document so a non-technical reader can understand it and make decisions, without changing its meaning: keep every item, number, identifier and level of certainty; explain internal codes, jargon and pending decisions. Use when the user types /ste or $ste, says they do not understand a technical answer, or asks to check a plan or requirement for ambiguity. Not for brand copy; does not certify ASD-STE100 compliance."
 user-invocable: true
-when_to_use: "Ngay sau một báo cáo hoặc kế hoạch kỹ thuật mà người đọc không chuyên cần hiểu hoặc phải quyết định; khi rà tài liệu để agent khác triển khai không phải đoán."
+when_to_use: "Right after a technical report or plan that a non-technical reader must understand or act on; when reviewing a document so another agent can implement it without guessing."
 category: reasoning
 keywords: [ste, clarity, plain-language, ambiguity, decision, non-technical]
-argument-hint: "[path|chủ đề] [--check] [--strict] [--visual auto|off|diagram|html|video]"
+argument-hint: "[path|topic] [--check] [--strict] [--visual auto|off|diagram|html|video]"
 license: MIT
 metadata:
-  version: "2.0.0"
+  version: "2.1.0"
 ---
-# STE: viết lại cho người không chuyên mà không đổi nghĩa
+# STE: rewrite for non-technical readers without changing the meaning
 
-Người đọc hiểu công việc của họ nhưng không đọc code: chủ dự án, quản lý, khách hàng. Skill có hai mục tiêu, và mục tiêu thứ hai được ưu tiên khi hai bên xung đột:
+The reader knows their own business but does not read code: a project owner, a manager, a client. The skill has two goals. When they conflict, the second goal wins.
 
-1. Người đọc hiểu kết quả và biết mình cần làm hoặc quyết điều gì.
-2. Mọi thông tin của bản gốc vẫn còn đủ và đúng.
+1. The reader understands the result and knows what they need to do or decide.
+2. Every piece of information in the source is still there and still correct.
 
-## Đầu vào
+## Input
 
-| Cách gọi | Xử lý |
+| Call | What to do |
 |---|---|
-| `/ste` không kèm gì | Viết lại câu trả lời gần nhất của agent trong cuộc trò chuyện này |
-| `/ste <đường dẫn>` | Viết lại file đó tại chỗ; với `--check` thì chỉ nhận xét |
-| `/ste <chủ đề hoặc câu hỏi>` | Viết mới hoặc giải thích theo cùng quy tắc |
-| Gọi cùng workflow khác (brainstorm, plan, review…) | Áp dụng ngay khi viết đầu ra của workflow đó; đọc [cách ghép workflow](references/workflow-composition.md) |
+| `/ste` with nothing else | Rewrite the agent's most recent answer in this conversation |
+| `/ste <path>` | Rewrite that file in place; with `--check`, only comment on it |
+| `/ste <topic or question>` | Write or explain from scratch under the same rules |
+| Together with another workflow (brainstorm, plan, review…) | Apply while writing that workflow's output; read [workflow composition](references/workflow-composition.md) |
 
-Viết bằng ngôn ngữ người đọc đang dùng, trừ khi họ yêu cầu khác. Giữ nguyên giọng thương hiệu, thơ, truyện và lời trích dẫn. Khi giao việc cho agent khác, truyền kèm lựa chọn `ste`, ngôn ngữ, chế độ, phạm vi file và hợp đồng giữ nghĩa dưới đây.
+Write in the reader's language unless they ask for another one. Leave brand voice, poetry, fiction and quotations as they are. When you hand work to another agent, pass on the `ste` request, the language, the mode, the file scope and the meaning-preservation contract below.
 
-## Hợp đồng giữ nghĩa
+## Meaning-preservation contract
 
-Áp dụng mọi lúc, kể cả khi bản viết lại vì thế mà dài hơn.
+This applies at all times, even if it makes the rewrite longer.
 
-1. **Viết trên nguyên văn.** Đọc lại đúng văn bản nguồn trước khi viết; không soạn lại từ trí nhớ về chủ đề. Nếu không còn thấy nguyên văn (ví dụ sau khi ngữ cảnh bị rút gọn), nói rõ điều đó, đọc lại file nguồn nếu có, và báo giới hạn nếu không có.
-2. **Giữ danh sách.** Giữ cùng số mục, cùng thứ tự, cùng số thứ tự. Không gộp, tách hoặc bỏ mục. Câu hỏi còn mở, việc chờ quyết, cảnh báo và rủi ro vẫn phải có mặt.
-3. **Giữ nguyên chi tiết chịu lực:** con số, đơn vị, ngày giờ, tên người, định danh (file, lệnh, API, biến, mã commit, mã đơn), điều kiện, phủ định, ngoại lệ, thứ tự bước, và độ chắc chắn (có thể, chưa kiểm tra, đề xuất, đã chốt).
-4. **Giải thích, không thay thế.** Lần đầu gặp thuật ngữ hoặc mã nội bộ, viết nghĩa bằng lời thường và giữ tên gốc trong ngoặc, ví dụ "đưa bản mới lên server (release Lần B)". Nhờ vậy người đọc vẫn tra được và nhắc lại được với agent.
-5. **Không thêm sự thật mới.** Thuật ngữ phổ biến (smoke test, migration, webhook) được giải thích theo nghĩa chung. Mã riêng của dự án (U01, Lần B, phase 4) chỉ được giải thích theo nguồn; nếu không có nguồn thì ghi "bản gốc chưa giải thích". Thông tin lấy thêm từ file vừa đọc trong lượt này phải ghi "bổ sung từ <nguồn>".
-6. **Không che chỗ hổng.** Nếu bản gốc mâu thuẫn, thiếu việc người đọc cần làm, hoặc đặt câu hỏi mà không có lựa chọn hay khuyến nghị, nêu rõ đó là chỗ bản gốc chưa có. Không tự lấp bằng phán đoán.
-7. **Dòng đối chiếu.** Khi viết lại từ một nguồn, kết thúc câu trả lời bằng một dòng như: `Đối chiếu bản gốc: giữ 6/6 mục; bổ sung: …; lược: …; bản gốc chưa rõ: …`. Bỏ những phần không có. Với file, ghi dòng này trong câu trả lời chat, không chèn vào file.
+1. **Work from the exact source.** Re-read the exact source text before writing. Do not rewrite from memory of the topic. If you cannot see the exact text anymore (for example after the context was compacted), say so, re-read the source file if there is one, and state the limit if there is not.
+2. **Keep the lists.** Same number of items, same order, same numbering. Do not merge, split or drop items. Open questions, pending decisions, warnings and risks must all still be there.
+3. **Keep load-bearing details exactly:** numbers, units, dates and times, names of people, identifiers (files, commands, APIs, variables, commit hashes, order IDs), conditions, negations, exceptions, the order of steps, and the level of certainty (may, not yet tested, proposed, decided).
+4. **Explain, do not replace.** The first time a term or internal code appears, give its meaning in plain words and keep the original in brackets, for example "put the new version of the app on the server (Release B)". The reader can then still look it up and use the same words with the agent.
+5. **Add no new facts.** Common terms (smoke test, migration, webhook) get their general meaning. Project-specific codes (U01, Release B, phase 4) are explained only from the source; if the source does not explain them, write "not explained in the source". Information you take from a file you read during this turn must be marked "added from <source>".
+6. **Do not hide gaps.** If the source contradicts itself, does not say what the reader must do, or asks a question without options or a recommendation, say clearly that the source does not have it. Do not fill the gap with your own guess.
+7. **Source check line.** When you rewrite from a source, end the answer with one line such as: `Source check: kept 6/6 items; added: …; dropped: …; unclear in source: …`. Leave out the parts that do not apply. Write the line in the reader's language. For a file, put this line in the chat reply, not in the file.
 
-## Khoảng cách hay gặp giữa đầu ra kỹ thuật và người đọc
+## Common gaps between technical output and the reader
 
-Rà theo thứ tự này. Ví dụ đúng và sai ở [reader-gaps](references/reader-gaps.md).
+Check them in this order. Examples of right and wrong rewrites are in [reader gaps](references/reader-gaps.md).
 
-1. **Câu hỏi cần chốt thiếu bối cảnh.** Mỗi câu nêu bốn điều: đang quyết việc gì, nói bằng lời thường; vì sao cần quyết và mỗi lựa chọn dẫn tới khác biệt gì; các lựa chọn; khuyến nghị hoặc mặc định mà bản gốc đưa ra. Tách điều đã chốt khỏi điều còn thiếu, để không hỏi lại việc người đọc đã quyết. Điều gì mọi câu cùng thiếu (ví dụ không câu nào có khuyến nghị) thì nói một lần trước danh sách, không lặp ở từng câu. Không tạo thêm danh sách đánh số thứ hai; thông tin phụ dùng gạch đầu dòng.
-2. **Mã, nhãn nội bộ và viết tắt** (phase 4, U01–U14, Lần B, tên biến, YAGNI, RPC): giải thích ngắn ở lần đầu theo quy tắc 4 và 5.
-3. **Từ thường hoặc từ dịch mang nghĩa riêng.** Nếu một từ có thể bị hiểu theo nghĩa nghiệp vụ khác của người đọc, nói rõ nó chỉ cái gì. Ví dụ: "phát hành" một bản phần mềm khác "phát hành" hóa đơn; "xuất", "nháp", "đồng bộ" cũng thường gây nhầm. Không tự đặt từ dịch mới cho một thuật ngữ.
-4. **Kết quả và việc cần làm lên đầu.** Mở bằng kết quả và việc người đọc cần làm bây giờ, hoặc nói rõ là chưa cần làm gì.
-5. **Cơ chế và đánh đổi nói bằng hệ quả:** ai thấy gì, khi nào, được gì, mất gì. Dùng ví dụ có số liệu nếu bản gốc có.
-6. **Lượng mơ hồ** ("giảm", "cắt bớt", "gần đây"): ghi con số từ đâu đến đâu nếu bản gốc có; nếu không có thì ghi là chưa rõ.
+1. **Decision questions without context.** Each question states four things: what is being decided, in plain words; why it must be decided and what difference each option makes; the options; the recommendation or default that the source gives. Separate what is already decided from what is still missing, so the reader is not asked again about something they already decided. If every question lacks the same thing (for example none has a recommendation), say it once before the list instead of under each question. Do not add a second numbered list; use bullets for supporting details.
+2. **Internal codes, labels and abbreviations** (phase 4, U01–U14, Release B, variable names, YAGNI, RPC): explain them briefly at first use, following rules 4 and 5.
+3. **Everyday or translated words with a special meaning.** If a word can be read with a different meaning in the reader's own business, say what it refers to here. Examples: "production" means the live system, not a manufacturing line; "issue" can mean a ticket or a problem; "export", "draft" and "sync" are also often misread. Do not invent a new translation for a technical term.
+4. **Result and next action first.** Open with the result and what the reader must do now, or say clearly that nothing is needed yet.
+5. **Mechanisms and trade-offs as consequences:** who sees what, when, what is gained, what is lost. Use an example with numbers if the source has them.
+6. **Vague amounts** ("reduce", "cut back", "recently"): give the numbers from and to if the source has them; otherwise say they are unclear.
 
-## Chế độ
+## Modes
 
-| Chế độ | Hành vi |
+| Mode | Behavior |
 |---|---|
-| Mặc định | Viết lại theo hợp đồng giữ nghĩa; dùng `--visual auto` |
-| `--check` | Chỉ đọc: nêu vị trí, tác động, đề xuất và điểm cần chốt; không sửa hoặc tạo file, kể cả HTML |
-| `--strict` | Chỉ cho văn bản tiếng Anh, theo tinh thần ASD-STE100; đọc [hướng dẫn tiếng Anh](references/strict-english.md); không tự dịch tài liệu ngôn ngữ khác |
-| `--visual off` | Không thêm bảng, sơ đồ, HTML hay video tùy chọn |
-| `--visual diagram/html/video` | Dùng hình thức được yêu cầu; đọc [quy tắc minh họa](references/visual-routing.md) |
+| Default | Rewrite under the meaning-preservation contract; uses `--visual auto` |
+| `--check` | Read only: report the location, impact, suggestion and decision needed; do not edit or create files, including HTML |
+| `--strict` | English text only, in the spirit of ASD-STE100; read [strict English](references/strict-english.md); do not translate documents in other languages on your own |
+| `--visual off` | No optional tables, diagrams, HTML or video |
+| `--visual diagram/html/video` | Use the requested form; read [visual routing](references/visual-routing.md) |
 
-Chỉ chọn một giá trị `--visual`. Nếu `--check` đi kèm yêu cầu tạo file, chỉ trả nhận xét trong chat và nói rõ giới hạn chỉ đọc.
+Choose only one `--visual` value. If `--check` comes with a request to create a file, reply only in chat and state the read-only limit.
 
-## Rà yêu cầu cho người triển khai
+## Checking requirements for implementers
 
-Khi viết hoặc rà plan, yêu cầu hay tiêu chí nghiệm thu, đọc [checklist mơ hồ](references/ambiguity.md). Tìm câu trả lời trong nguồn trước. Chỉ hỏi người quyết những điểm nghiệp vụ mà nguồn chưa chốt. Không tự điền giá trị và không biến đề xuất thành yêu cầu.
+When you write or review a plan, requirement or acceptance criteria, read the [ambiguity checklist](references/ambiguity.md). Look for the answer in the source first. Ask the decision maker only about business points that the source has not decided. Leave missing values open rather than inventing them, and do not turn a proposal into a requirement.
 
-## Minh họa
+## Visuals
 
-Mặc định là `--visual auto`: dùng chữ cho câu trả lời ngắn, bảng khi cần so sánh, sơ đồ khi luồng hoặc quan hệ khó hình dung. Đọc [quy tắc minh họa](references/visual-routing.md) trước khi tạo hình, HTML hoặc video.
+The default is `--visual auto`: text for short answers, a table when comparing, a diagram when a flow or relationship is hard to picture. Read [visual routing](references/visual-routing.md) before you create a diagram, HTML or video.
 
-## Tự rà trước khi gửi
+## Self-check before sending
 
-- Đếm lại số mục và số câu hỏi so với bản gốc.
-- Dò từng chi tiết chịu lực ở quy tắc 3 xem còn đủ và đúng không.
-- Tìm câu nào làm tăng hoặc giảm độ chắc chắn so với bản gốc.
-- Đọc như người không chuyên: còn câu nào khiến họ phải hỏi "là sao" hoặc "cái này là gì" không?
-- Rà câu chữ không phải là kiểm chứng hệ thống. Không viết "đã kiểm tra" nếu mới chỉ rà văn bản.
+- Count the items and questions again and compare with the source.
+- Check each load-bearing detail from rule 3: is it still there and still correct?
+- Look for any sentence that is more or less certain than the source.
+- Read it as a non-technical reader: is there still a sentence that would make them ask "what does this mean?"
+- Checking the wording is not verifying the system. Do not write "verified" if you only reviewed the text.
 
-## Nguồn và giới hạn
+## Sources and limits
 
-Đọc [nguồn](references/sources.md) để biết thiết kế dựa trên đâu. Đây không phải bản chính thức của ASD-STE100, cũng không phải thước đo độ chính xác của agent.
+Read [sources](references/sources.md) for what this design is based on. This is not an official version of ASD-STE100 and not a measure of the agent's accuracy.

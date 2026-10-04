@@ -1,20 +1,20 @@
-# Ghép STE vào workflow khác
+# Using STE inside other workflows
 
-Workflow đang dùng quyết định các bước cần làm và đầu ra bắt buộc. Đó có thể là bộ skill như AgentKit/ClaudeKit (brainstorm, plan, cook, test, code-review, fix) hoặc quy trình riêng của dự án. STE giúp diễn đạt và rà chỗ thiếu nghĩa ngay trong bước đó; STE không thêm cổng duyệt bắt buộc.
+The active workflow decides the steps and the required outputs. That can be a skill set such as AgentKit/ClaudeKit (brainstorm, plan, cook, test, code-review, fix) or the project's own process. STE helps with wording and with finding missing meaning inside that step; STE does not add a mandatory approval gate.
 
-| Bước | Áp dụng STE ở đâu | Giữ nguyên |
+| Step | Where STE applies | What stays unchanged |
 |---|---|---|
-| Brainstorm | Mục tiêu, phương án, đánh đổi, giả định và khuyến nghị | Quyết định đã chốt, phạm vi, điều kiện nghiệm thu; ý tưởng còn mở vẫn là ý tưởng |
-| Plan | File plan và các phase trong phạm vi task; rà trước khi bàn giao | Frontmatter, mục bắt buộc, liên kết, checklist, tên file/API/bảng, điều kiện lỗi và cách kiểm chứng |
-| Code | Giải thích thay đổi và các điểm cần quyết | Code, lệnh, định danh; viết dễ hiểu không thay cho build và test |
-| Test | Kết quả, ảnh hưởng của lỗi và phần chưa kiểm tra | Lệnh đã chạy, kết quả thật, lỗi và phần chưa có test |
-| Code review | Tình huống gây lỗi, ảnh hưởng, bằng chứng, đề xuất | Mức độ lỗi, quyết định của người quyết, phát hiện đúng thực tế |
-| Fix | Nguyên nhân, hành vi được sửa và bằng chứng | Phạm vi sửa và kết quả kiểm thử; không đổi "chưa kiểm tra" thành "đã đúng" |
+| Brainstorm | Goals, options, trade-offs, assumptions and recommendations | Decisions already made, scope, acceptance criteria; open ideas stay ideas |
+| Plan | The plan file and the phases in the task scope; check before hand-off | Frontmatter, required sections, links, checklists, file/API/table names, error conditions and how to verify |
+| Code | Explaining the change and the points that need a decision | Code, commands, identifiers; plain wording does not replace build and test |
+| Test | Results, impact of failures and what was not tested | Commands run, actual results, failures and missing tests |
+| Code review | Failure scenario, impact, evidence, suggestion | Severity, the decision maker's decisions, findings that match reality |
+| Fix | Cause, the behavior that was fixed, and evidence | Fix scope and test results; do not turn "not tested" into "correct" |
 
-Khi workflow có template đầu ra riêng, đọc template đó và giữ nguyên nó; bảng trên không thay thế template. Nếu workflow chưa được cài, STE vẫn chạy độc lập.
+When the workflow has its own output template, read it and keep it; the table above does not replace the template. If the workflow is not installed, STE still runs on its own.
 
-Khi một yêu cầu gọi cả workflow viết tài liệu (ví dụ `/plan`) và `ste`, áp dụng STE trong lúc viết. Không viết xong rồi tạo thêm một bản "dễ hiểu" thứ hai. Agent phụ nhận cùng chỉ dẫn và phạm vi. Agent chính rà kết quả, đối chiếu với quyết định và nguồn.
+When one request calls both a document workflow (for example `/plan`) and `ste`, apply STE while writing. Do not write the document and then create a second "plain" version. Sub-agents get the same instructions and scope. The main agent reviews the result against the decisions and the sources.
 
-Khi chỉ yêu cầu `--check`, trả về phát hiện; không tự sửa plan, checkbox, trạng thái phase hay file báo cáo. Không chạy workflow có ghi file để phục vụ một yêu cầu chỉ đọc.
+When only `--check` is requested, return findings; do not edit the plan, checkboxes, phase status or report files. Do not run a workflow that writes files to serve a read-only request.
 
-Khi review đề nghị thay một thư viện hay ngưỡng mà người quyết đã chọn, giữ quyết định gốc và trình bày đề nghị mới như một câu hỏi cần chốt. Viết cho dễ đọc không phải lý do để đổi nghiệp vụ.
+When a review suggests replacing a library or threshold that the decision maker chose, keep the original decision and present the new suggestion as a question to decide. Clearer wording is not a reason to change business rules.
