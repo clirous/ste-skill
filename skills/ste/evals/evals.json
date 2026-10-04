@@ -1,0 +1,135 @@
+{
+  "skill_name": "ste",
+  "evals": [
+    {
+      "id": "simple",
+      "split": "train",
+      "prompt": "Giải thích ngắn: chạy test giúp biết thay đổi có làm hỏng hành vi đã kiểm tra không.",
+      "expected_output": "Trả lời bằng chữ ngắn; không có sơ đồ/HTML/video và không hứa test chứng minh không còn lỗi.",
+      "files": [],
+      "assertions": [
+        {
+          "id": "simple-meaning",
+          "text": "Trả lời bằng chữ ngắn; không có sơ đồ/HTML/video và không hứa test chứng minh không còn lỗi.",
+          "kind": "rubric"
+        }
+      ]
+    },
+    {
+      "id": "flow",
+      "split": "train",
+      "prompt": "Giải thích luồng này cho chủ dự án: Webhook -> kiểm tra chữ ký -> nếu sai thì trả 401 và không ghi dữ liệu; nếu đúng thì tra event_id; nếu đã xử lý thì trả 200 không ghi lại; nếu chưa xử lý thì lưu trong transaction, commit thành công mới trả 200. Lỗi lưu trả 500 để bên gửi retry. Tạo đầu ra giúp nhìn rõ nhánh lỗi và chạy lặp.",
+      "expected_output": "Có minh họa nhánh hợp lý; giữ signature, 401, 200, 500, event_id, transaction và thứ tự commit; không bịa runtime đang có.",
+      "files": [],
+      "assertions": [
+        {
+          "id": "flow-meaning",
+          "text": "Có minh họa nhánh hợp lý; giữ signature, 401, 200, 500, event_id, transaction và thứ tự commit; không bịa runtime đang có.",
+          "kind": "rubric"
+        }
+      ]
+    },
+    {
+      "id": "ambiguity",
+      "split": "train",
+      "prompt": "Viết phần yêu cầu cho plan từ câu chưa chốt: Chỉ quản lý được sửa lịch hẹn gần đây. Không có code hay tài liệu nào khác.",
+      "expected_output": "Phát hiện quản lý/phạm vi/quyền sửa/gần đây chưa rõ, hỏi quyết định cần thiết; không tự đặt 24 giờ hoặc 7 ngày; không ghi sẵn sàng code.",
+      "files": [],
+      "assertions": [
+        {
+          "id": "ambiguity-meaning",
+          "text": "Phát hiện quản lý/phạm vi/quyền sửa/gần đây chưa rõ, hỏi quyết định cần thiết; không tự đặt 24 giờ hoặc 7 ngày; không ghi sẵn sàng code.",
+          "kind": "rubric"
+        }
+      ]
+    },
+    {
+      "id": "uncertainty",
+      "split": "train",
+      "prompt": "Viết lại rõ hơn, giữ nghĩa: Đề xuất giảm timeout từ 30s xuống 10s nếu thử nghiệm đạt. Dịch vụ có thể chậm khi mạng yếu; hiện CHƯA kiểm tra tình huống này. Chủ dự án đã chọn SQLite, giữ lựa chọn đó.",
+      "expected_output": "Giữ đề xuất, 30s/10s, điều kiện, có thể, chưa kiểm tra và SQLite.",
+      "files": [],
+      "assertions": [
+        {
+          "id": "uncertainty-meaning",
+          "text": "Giữ đề xuất, 30s/10s, điều kiện, có thể, chưa kiểm tra và SQLite.",
+          "kind": "rubric"
+        }
+      ]
+    },
+    {
+      "id": "off",
+      "split": "train",
+      "prompt": "--visual off: So sánh cách A ghi dữ liệu ngay (đơn giản, lỗi có thể mất đồng bộ) với cách B ghi qua queue (thêm vận hành, có retry). Chỉ so sánh bằng chữ.",
+      "expected_output": "Không bảng/sơ đồ/HTML; vẫn đủ đánh đổi và giữ độ chắc chắn.",
+      "files": [],
+      "assertions": [
+        {
+          "id": "off-meaning",
+          "text": "Không bảng/sơ đồ/HTML; vẫn đủ đánh đổi và giữ độ chắc chắn.",
+          "kind": "rubric"
+        }
+      ]
+    },
+    {
+      "id": "readonly",
+      "split": "train",
+      "prompt": "--check --visual html: Rà file input-plan.md và đề xuất diễn đạt tốt hơn. Không sửa hoặc tạo file.",
+      "expected_output": "Đọc nguồn, báo vị trí mơ hồ và đề xuất, không tạo HTML hoặc sửa nguồn.",
+      "files": [
+        "fixtures/input-plan.md"
+      ],
+      "assertions": [
+        {
+          "id": "readonly-meaning",
+          "text": "Đọc nguồn, báo vị trí mơ hồ và đề xuất, không tạo HTML hoặc sửa nguồn.",
+          "kind": "rubric"
+        }
+      ]
+    },
+    {
+      "id": "strict",
+      "split": "train",
+      "prompt": "--strict: Rewrite in English without changing meaning: The service may respond slowly if the network is unstable. This scenario has not been tested. The timeout remains 30s unless the owner approves a change.",
+      "expected_output": "Giữ khả năng chậm, chưa test, 30s và điều kiện owner; không tự biến may thành will, không chứng nhận chuẩn.",
+      "files": [],
+      "assertions": [
+        {
+          "id": "strict-meaning",
+          "text": "Giữ khả năng chậm, chưa test, 30s và điều kiện owner; không tự biến may thành will, không chứng nhận chuẩn.",
+          "kind": "rubric"
+        }
+      ]
+    },
+    {
+      "id": "html",
+      "split": "train",
+      "prompt": "--visual html: Tạo một HTML tự chứa minh họa hai kịch bản giả định: xử lý ngay mất 1s; xử lý qua queue mất 3s và có retry. Cho chọn kịch bản để xem khác biệt. Không gọi mạng và không thêm dữ liệu.",
+      "expected_output": "HTML có tương tác đúng hai giả định, đánh dấu giả định, không CDN, không tạo quy tắc thật hoặc video.",
+      "files": [],
+      "assertions": [
+        {
+          "id": "html-meaning",
+          "text": "HTML có tương tác đúng hai giả định, đánh dấu giả định, không CDN, không tạo quy tắc thật hoặc video.",
+          "kind": "rubric"
+        }
+      ]
+    },
+    {
+      "id": "rewrite-previous",
+      "split": "train",
+      "prompt": "Nội dung file technical-report.md là câu trả lời ngay trước đó của agent gửi chủ cửa hàng (cửa hàng có xuất hóa đơn điện tử). Người dùng gõ: /ste",
+      "expected_output": "Người đọc là chủ một cửa hàng có xuất hóa đơn điện tử. Giữ đủ 4/4 câu cần quyết theo đúng thứ tự và 1 câu hỏi còn mở, chỉ một danh sách đánh số; giải thích 'Phát hành Lần B' là đưa bản mới của app lên server, không phải phát hành hóa đơn; giữ nguyên Phase 7–9, `feat/order-db`, 412/412, migration 0031–0034, `SYNC_ENABLED`, U01–U05, `orders.db.pre-0031`, `ORDER_API_URL`; ghi U01–U05 là bản gốc chưa giải thích; không bịa con số cho 'cắt bớt nhịp' và không bịa khuyến nghị cho các câu thiếu khuyến nghị mà nêu là bản gốc chưa có; giữ việc sao lưu là đã chốt; giải thích ý deploy được ngay và auto-deploy sẽ lỗi theo nguồn, không làm mất ý nào; mở đầu bằng kết quả và việc người đọc cần làm; không nói test chứng minh production đúng; kết thúc bằng dòng đối chiếu bản gốc.",
+      "files": [
+        "fixtures/technical-report.md"
+      ],
+      "assertions": [
+        {
+          "id": "rewrite-previous-fidelity",
+          "text": "Người đọc là chủ một cửa hàng có xuất hóa đơn điện tử. Giữ đủ 4/4 câu cần quyết theo đúng thứ tự và 1 câu hỏi còn mở, chỉ một danh sách đánh số; giải thích 'Phát hành Lần B' là đưa bản mới của app lên server, không phải phát hành hóa đơn; giữ nguyên Phase 7–9, `feat/order-db`, 412/412, migration 0031–0034, `SYNC_ENABLED`, U01–U05, `orders.db.pre-0031`, `ORDER_API_URL`; ghi U01–U05 là bản gốc chưa giải thích; không bịa con số cho 'cắt bớt nhịp' và không bịa khuyến nghị cho các câu thiếu khuyến nghị mà nêu là bản gốc chưa có; giữ việc sao lưu là đã chốt; giải thích ý deploy được ngay và auto-deploy sẽ lỗi theo nguồn, không làm mất ý nào; mở đầu bằng kết quả và việc người đọc cần làm; không nói test chứng minh production đúng; kết thúc bằng dòng đối chiếu bản gốc.",
+          "kind": "rubric"
+        }
+      ]
+    }
+  ]
+}
